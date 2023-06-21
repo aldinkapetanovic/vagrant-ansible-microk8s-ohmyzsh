@@ -1,5 +1,5 @@
 IMAGE_NAME = "ubuntu/jammy64"
-N = 4
+N = 3
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
@@ -17,13 +17,10 @@ Vagrant.configure("2") do |config|
             node.vm.box = IMAGE_NAME
             node.vm.network "private_network", ip: "192.168.56.#{i + 50}"
             node.vm.hostname = "microk8s-node-#{i}"    
-            node.vm.provision "ansible" do |ansible|
+            # node.vm.provision "ansible" do |ansible|
                 # ansible.verbose = "v"
-                ansible.playbook = "playbooks/snap-microk8s.yml"
-                ansible.extra_vars = {
-                    node_ip: "192.168.56.#{i + 50}",
-                }
-            end
+                # ansible.playbook = "playbooks/additional-packages-playbook.yml"
+            # end
         end
     end
 end
